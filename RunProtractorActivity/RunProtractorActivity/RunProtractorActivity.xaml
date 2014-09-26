@@ -1,0 +1,441 @@
+﻿<Activity mc:Ignorable="sads sap sap2010" x:Class="RunProtractorActivity.RunProtractor"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:mt="clr-namespace:Microsoft.TeamFoundation;assembly=Microsoft.TeamFoundation.Common"
+ xmlns:mtba="clr-namespace:Microsoft.TeamFoundation.Build.Activities;assembly=Microsoft.TeamFoundation.Build.Activities"
+ xmlns:mtbac="clr-namespace:Microsoft.TeamFoundation.Build.Activities.Core;assembly=Microsoft.TeamFoundation.Build.Activities"
+ xmlns:mtbae="clr-namespace:Microsoft.TeamFoundation.Build.Activities.Extensions;assembly=Microsoft.TeamFoundation.Build.Activities"
+ xmlns:mtbag="clr-namespace:Microsoft.TeamFoundation.Build.Activities.Git;assembly=Microsoft.TeamFoundation.Build.Activities"
+ xmlns:mtbat="clr-namespace:Microsoft.TeamFoundation.Build.Activities.TeamFoundation;assembly=Microsoft.TeamFoundation.Build.Activities"
+ xmlns:mtbc="clr-namespace:Microsoft.TeamFoundation.Build.Common;assembly=Microsoft.TeamFoundation.Build.Common"
+ xmlns:mtbc1="clr-namespace:Microsoft.TeamFoundation.Build.Client;assembly=Microsoft.TeamFoundation.Build.Client"
+ xmlns:mtbc2="clr-namespace:Microsoft.TeamFoundation.Build.Common;assembly=Microsoft.TeamFoundation.Build.Workflow"
+ xmlns:mtbw="clr-namespace:Microsoft.TeamFoundation.Build.Workflow;assembly=Microsoft.TeamFoundation.Build.Workflow"
+ xmlns:mtbwa="clr-namespace:Microsoft.TeamFoundation.Build.Workflow.Activities;assembly=Microsoft.TeamFoundation.Build.Workflow"
+ xmlns:mtbwt="clr-namespace:Microsoft.TeamFoundation.Build.Workflow.Tracking;assembly=Microsoft.TeamFoundation.Build.Workflow"
+ xmlns:mtc="clr-namespace:Microsoft.TeamFoundation.Client;assembly=Microsoft.TeamFoundation.Client"
+ xmlns:mtdw="clr-namespace:Microsoft.TeamFoundation.Deployment.Workflow;assembly=Microsoft.TeamFoundation.Deployment.Workflow"
+ xmlns:mtdwa="clr-namespace:Microsoft.TeamFoundation.Deployment.Workflow.Activities;assembly=Microsoft.TeamFoundation.Deployment.Workflow"
+ xmlns:mttbb="clr-namespace:Microsoft.TeamFoundation.TestImpact.BuildIntegration.BuildActivities;assembly=Microsoft.TeamFoundation.TestImpact.BuildIntegration"
+ xmlns:mtvc="clr-namespace:Microsoft.TeamFoundation.VersionControl.Client;assembly=Microsoft.TeamFoundation.VersionControl.Client"
+ xmlns:mtvc1="clr-namespace:Microsoft.TeamFoundation.VersionControl.Common;assembly=Microsoft.TeamFoundation.VersionControl.Common"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:r="clr-namespace:RunJsTestsActivity"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:s1="clr-namespace:System;assembly=System.ComponentModel.Composition"
+ xmlns:s2="clr-namespace:System;assembly=System.Core"
+ xmlns:s3="clr-namespace:System;assembly=System"
+ xmlns:s4="clr-namespace:System;assembly=System.ServiceModel"
+ xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+ xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:si="clr-namespace:System.IO;assembly=System.ServiceModel"
+ xmlns:si1="clr-namespace:System.IO;assembly=WindowsBase"
+ xmlns:si2="clr-namespace:System.IO;assembly=System.Core"
+ xmlns:si3="clr-namespace:System.IO;assembly=System"
+ xmlns:si4="clr-namespace:System.IO;assembly=mscorlib"
+ xmlns:sl="clr-namespace:System.Linq;assembly=System.Core"
+ xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
+ xmlns:sx="clr-namespace:System.Xml;assembly=System.Xml"
+ xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq"
+ xmlns:sxs="clr-namespace:System.Xml.Serialization;assembly=System.Xml"
+ xmlns:t="clr-namespace:TfsBuild;assembly=CustomBuildProcess"
+ xmlns:tax="clr-namespace:TfsBuildExtensions.Activities.Xml;assembly=TfsBuildExtensions.Activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="ProtractorConfigFile" Type="InArgument(x:String)" />
+    <x:Property Name="InstallDependenciesScript" Type="InArgument(x:String)" />
+    <x:Property Name="ConfigurationToBuild" Type="InArgument(x:String)" />
+    <x:Property Name="WebdriverManagerScript" Type="InArgument(x:String)" />
+  </x:Members>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap2010:WorkflowViewState.IdRef>RunJsTestsActivity.Activity1_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>Microsoft.TeamFoundation.Build.Activities</x:String>
+      <x:String>Microsoft.TeamFoundation</x:String>
+      <x:String>Microsoft.TeamFoundation.Build.Activities.Core</x:String>
+      <x:String>Microsoft.TeamFoundation.Build.Activities.Extensions</x:String>
+      <x:String>Microsoft.TeamFoundation.Build.Activities.TeamFoundation</x:String>
+      <x:String>Microsoft.TeamFoundation.Build.Client</x:String>
+      <x:String>Microsoft.TeamFoundation.Build.Common</x:String>
+      <x:String>Microsoft.TeamFoundation.Build.Workflow</x:String>
+      <x:String>Microsoft.TeamFoundation.Common</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.Debugger</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>Microsoft.TeamFoundation.VersionControl.Common</x:String>
+      <x:String>Microsoft.TeamFoundation.VersionControl.Client</x:String>
+      <x:String>Microsoft.TeamFoundation.Deployment.Workflow.Activities</x:String>
+      <x:String>Microsoft.TeamFoundation.Deployment.Workflow</x:String>
+      <x:String>Microsoft.TeamFoundation.Client</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.Build.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.Build.Client</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.Build.Common</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.Build.Workflow</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.Client</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.Common</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.Deployment.Workflow</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.VersionControl.Client</AssemblyReference>
+      <AssemblyReference>Microsoft.TeamFoundation.VersionControl.Common</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Activities.Presentation</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>RunJsTestsActivity</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Run Protractor Tests" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="SourcesDirectory" />
+      <Variable x:TypeArguments="mtbc1:IBuildDetail" Name="BuildDetail" />
+      <Variable x:TypeArguments="mtc:TfsTeamProjectCollection" Name="TeamProjectCollection" />
+      <Variable x:TypeArguments="x:String" Name="TestOutcome" />
+      <Variable x:TypeArguments="x:String" Name="Plattform">
+        <Variable.Default>
+          <mca:CSharpValue x:TypeArguments="x:String">ConfigurationToBuild.Split(Convert.ToChar("|")).ElementAt(0);</mca:CSharpValue>
+        </Variable.Default>
+      </Variable>
+      <Variable x:TypeArguments="x:String" Name="Configuration">
+        <Variable.Default>
+          <mca:CSharpValue x:TypeArguments="x:String">ConfigurationToBuild.Split(Convert.ToChar("|")).ElementAt(1);</mca:CSharpValue>
+        </Variable.Default>
+      </Variable>
+    </Sequence.Variables>
+    <mtbac:GetEnvironmentVariable x:TypeArguments="x:String" DisplayName="Read SourcesDirectory" sap2010:WorkflowViewState.IdRef="GetEnvironmentVariable`1_2">
+      <mtbac:GetEnvironmentVariable.Name>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">Microsoft.TeamFoundation.Build.Activities.Extensions.WellKnownEnvironmentVariables.SourcesDirectory</mca:CSharpValue>
+        </InArgument>
+      </mtbac:GetEnvironmentVariable.Name>
+      <mtbac:GetEnvironmentVariable.Result>
+        <OutArgument x:TypeArguments="x:String">
+          <mca:CSharpReference x:TypeArguments="x:String">SourcesDirectory</mca:CSharpReference>
+        </OutArgument>
+      </mtbac:GetEnvironmentVariable.Result>
+    </mtbac:GetEnvironmentVariable>
+    <mtbwa:GetTeamProjectCollection DisplayName="Read TeamProjectCollection" sap2010:WorkflowViewState.IdRef="GetTeamProjectCollection_1">
+      <mtbwa:GetTeamProjectCollection.Result>
+        <OutArgument x:TypeArguments="mtc:TfsTeamProjectCollection">
+          <mca:CSharpReference x:TypeArguments="mtc:TfsTeamProjectCollection">TeamProjectCollection</mca:CSharpReference>
+        </OutArgument>
+      </mtbwa:GetTeamProjectCollection.Result>
+    </mtbwa:GetTeamProjectCollection>
+    <mtbwa:GetBuildDetail DisplayName="Read BuildDetail" sap2010:WorkflowViewState.IdRef="GetBuildDetail_1">
+      <mtbwa:GetBuildDetail.Result>
+        <OutArgument x:TypeArguments="mtbc1:IBuildDetail">
+          <mca:CSharpReference x:TypeArguments="mtbc1:IBuildDetail">BuildDetail</mca:CSharpReference>
+        </OutArgument>
+      </mtbwa:GetBuildDetail.Result>
+    </mtbwa:GetBuildDetail>
+    <mtbwa:InvokeProcess DisplayName="Install dependencies" FileName="powershell" sap2010:WorkflowViewState.IdRef="InvokeProcess_1">
+      <mtbwa:InvokeProcess.Arguments>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">string.Format(@" ""&amp; '{0}' '{1}' "" ", SourcesDirectory + InstallDependenciesScript, SourcesDirectory + ProtractorConfigFile);</mca:CSharpValue>
+        </InArgument>
+      </mtbwa:InvokeProcess.Arguments>
+      <mtbwa:InvokeProcess.ErrorDataReceived>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="errOutput" />
+          </ActivityAction.Argument>
+          <mtbwa:WriteBuildError sap2010:WorkflowViewState.IdRef="WriteBuildError_1">
+            <mtbwa:WriteBuildError.Message>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">errOutput</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildError.Message>
+          </mtbwa:WriteBuildError>
+        </ActivityAction>
+      </mtbwa:InvokeProcess.ErrorDataReceived>
+      <mtbwa:InvokeProcess.OutputDataReceived>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="stdOutput" />
+          </ActivityAction.Argument>
+          <mtbwa:WriteBuildMessage sap2010:WorkflowViewState.IdRef="WriteBuildMessage_1" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+            <mtbwa:WriteBuildMessage.Importance>
+              <InArgument x:TypeArguments="mtbc1:BuildMessageImportance">
+                <mca:CSharpValue x:TypeArguments="mtbc1:BuildMessageImportance">BuildMessageImportance.High</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildMessage.Importance>
+            <mtbwa:WriteBuildMessage.Message>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">stdOutput</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildMessage.Message>
+          </mtbwa:WriteBuildMessage>
+        </ActivityAction>
+      </mtbwa:InvokeProcess.OutputDataReceived>
+      <mtbwa:InvokeProcess.OutputEncoding>
+        <InArgument x:TypeArguments="st:Encoding">
+          <mca:CSharpValue x:TypeArguments="st:Encoding">System.Text.Encoding.GetEncoding(System.Globalization.CultureInfo.InstalledUICulture.TextInfo.OEMCodePage)</mca:CSharpValue>
+        </InArgument>
+      </mtbwa:InvokeProcess.OutputEncoding>
+    </mtbwa:InvokeProcess>
+    <mtbwa:InvokeProcess DisplayName="Starting webdriver manager..." FileName="powershell" sap2010:WorkflowViewState.IdRef="InvokeProcess_5">
+      <mtbwa:InvokeProcess.Arguments>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">string.Format(@" ""&amp; '{0}' "" ", SourcesDirectory + WebdriverManagerScript);</mca:CSharpValue>
+        </InArgument>
+      </mtbwa:InvokeProcess.Arguments>
+      <mtbwa:InvokeProcess.ErrorDataReceived>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="errOutput" />
+          </ActivityAction.Argument>
+          <mtbwa:WriteBuildError sap2010:WorkflowViewState.IdRef="WriteBuildError_6">
+            <mtbwa:WriteBuildError.Message>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">errOutput</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildError.Message>
+          </mtbwa:WriteBuildError>
+        </ActivityAction>
+      </mtbwa:InvokeProcess.ErrorDataReceived>
+      <mtbwa:InvokeProcess.OutputDataReceived>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="stdOutput" />
+          </ActivityAction.Argument>
+          <mtbwa:WriteBuildMessage sap2010:WorkflowViewState.IdRef="WriteBuildMessage_5" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+            <mtbwa:WriteBuildMessage.Importance>
+              <InArgument x:TypeArguments="mtbc1:BuildMessageImportance">
+                <mca:CSharpValue x:TypeArguments="mtbc1:BuildMessageImportance">BuildMessageImportance.High</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildMessage.Importance>
+            <mtbwa:WriteBuildMessage.Message>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">stdOutput</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildMessage.Message>
+          </mtbwa:WriteBuildMessage>
+        </ActivityAction>
+      </mtbwa:InvokeProcess.OutputDataReceived>
+      <mtbwa:InvokeProcess.OutputEncoding>
+        <InArgument x:TypeArguments="st:Encoding">
+          <mca:CSharpValue x:TypeArguments="st:Encoding">System.Text.Encoding.GetEncoding(System.Globalization.CultureInfo.InstalledUICulture.TextInfo.OEMCodePage)</mca:CSharpValue>
+        </InArgument>
+      </mtbwa:InvokeProcess.OutputEncoding>
+    </mtbwa:InvokeProcess>
+    <Delay DisplayName="Delay until selenium is up and running" sap2010:WorkflowViewState.IdRef="Delay_1">
+      <InArgument x:TypeArguments="x:TimeSpan">
+        <mca:CSharpValue x:TypeArguments="x:TimeSpan">TimeSpan.FromSeconds(10)</mca:CSharpValue>
+      </InArgument>
+    </Delay>
+    <mtbwa:InvokeProcess DisplayName="Protractor" FileName="C:\Windows\ServiceProfiles\NetworkService\AppData\Roaming\npm\protractor.cmd" sap2010:WorkflowViewState.IdRef="InvokeProcess_6">
+      <mtbwa:InvokeProcess.Arguments>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">"\"" + SourcesDirectory + ProtractorConfigFile + "\""</mca:CSharpValue>
+        </InArgument>
+      </mtbwa:InvokeProcess.Arguments>
+      <mtbwa:InvokeProcess.ErrorDataReceived>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="errOutput" />
+          </ActivityAction.Argument>
+          <mtbwa:WriteBuildError sap2010:WorkflowViewState.IdRef="WriteBuildError_7">
+            <mtbwa:WriteBuildError.Message>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">errOutput</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildError.Message>
+          </mtbwa:WriteBuildError>
+        </ActivityAction>
+      </mtbwa:InvokeProcess.ErrorDataReceived>
+      <mtbwa:InvokeProcess.OutputDataReceived>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="stdOutput" />
+          </ActivityAction.Argument>
+          <mtbwa:WriteBuildMessage sap2010:WorkflowViewState.IdRef="WriteBuildMessage_7" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+            <mtbwa:WriteBuildMessage.Importance>
+              <InArgument x:TypeArguments="mtbc1:BuildMessageImportance">
+                <mca:CSharpValue x:TypeArguments="mtbc1:BuildMessageImportance">BuildMessageImportance.High</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildMessage.Importance>
+            <mtbwa:WriteBuildMessage.Message>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">stdOutput</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildMessage.Message>
+          </mtbwa:WriteBuildMessage>
+        </ActivityAction>
+      </mtbwa:InvokeProcess.OutputDataReceived>
+      <mtbwa:InvokeProcess.OutputEncoding>
+        <InArgument x:TypeArguments="st:Encoding">
+          <mca:CSharpValue x:TypeArguments="st:Encoding">System.Text.Encoding.GetEncoding(System.Globalization.CultureInfo.InstalledUICulture.TextInfo.OEMCodePage)</mca:CSharpValue>
+        </InArgument>
+      </mtbwa:InvokeProcess.OutputEncoding>
+      <mtbwa:InvokeProcess.WorkingDirectory>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">SourcesDirectory</mca:CSharpValue>
+        </InArgument>
+      </mtbwa:InvokeProcess.WorkingDirectory>
+    </mtbwa:InvokeProcess>
+    <mtbwa:InvokeProcess DisplayName="Publish JS Test Results" FileName="C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" sap2010:WorkflowViewState.IdRef="InvokeProcess_4">
+      <mtbwa:InvokeProcess.Arguments>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">String.Format(@"/publish:""{0}"" /publishresultsfile:""{1}"" /publishbuild:""{2}"" /teamproject:""{3}"" /platform:""{4}"" /flavor:""{5}""", TeamProjectCollection.Uri, SourcesDirectory + @"\ProtractorTestResults.trx", BuildDetail.BuildNumber, BuildDetail.TeamProject, Plattform, Configuration)</mca:CSharpValue>
+        </InArgument>
+      </mtbwa:InvokeProcess.Arguments>
+      <mtbwa:InvokeProcess.ErrorDataReceived>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="errOutput" />
+          </ActivityAction.Argument>
+          <mtbwa:WriteBuildError sap2010:WorkflowViewState.IdRef="WriteBuildError_8">
+            <mtbwa:WriteBuildError.Message>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">errOutput</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildError.Message>
+          </mtbwa:WriteBuildError>
+        </ActivityAction>
+      </mtbwa:InvokeProcess.ErrorDataReceived>
+      <mtbwa:InvokeProcess.OutputDataReceived>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="stdOutput" />
+          </ActivityAction.Argument>
+          <mtbwa:WriteBuildMessage sap2010:WorkflowViewState.IdRef="WriteBuildMessage_9" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+            <mtbwa:WriteBuildMessage.Importance>
+              <InArgument x:TypeArguments="mtbc1:BuildMessageImportance">
+                <mca:CSharpValue x:TypeArguments="mtbc1:BuildMessageImportance">BuildMessageImportance.High</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildMessage.Importance>
+            <mtbwa:WriteBuildMessage.Message>
+              <InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">stdOutput</mca:CSharpValue>
+              </InArgument>
+            </mtbwa:WriteBuildMessage.Message>
+          </mtbwa:WriteBuildMessage>
+        </ActivityAction>
+      </mtbwa:InvokeProcess.OutputDataReceived>
+      <mtbwa:InvokeProcess.OutputEncoding>
+        <InArgument x:TypeArguments="st:Encoding">
+          <mca:CSharpValue x:TypeArguments="st:Encoding">System.Text.Encoding.GetEncoding(System.Globalization.CultureInfo.InstalledUICulture.TextInfo.OEMCodePage)</mca:CSharpValue>
+        </InArgument>
+      </mtbwa:InvokeProcess.OutputEncoding>
+    </mtbwa:InvokeProcess>
+    <Assign DisplayName="Assign the test outcome" sap2010:WorkflowViewState.IdRef="Assign_5">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">
+          <mca:CSharpReference x:TypeArguments="x:String">TestOutcome</mca:CSharpReference>
+        </OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">System.IO.File.ReadAllText(SourcesDirectory + @"\ProtractorTestResults.trx")</mca:CSharpValue>
+        </InArgument>
+      </Assign.Value>
+    </Assign>
+    <If DisplayName="Write build error if protractor tests failed" sap2010:WorkflowViewState.IdRef="If_2">
+      <If.Condition>
+        <InArgument x:TypeArguments="x:Boolean">
+          <mca:CSharpValue x:TypeArguments="x:Boolean">!string.IsNullOrEmpty(TestOutcome) &amp;&amp; !TestOutcome.ToUpper().Contains(@"RESULTSUMMARY OUTCOME=""PASSED""")</mca:CSharpValue>
+        </InArgument>
+      </If.Condition>
+      <If.Then>
+        <mtbwa:WriteBuildError sap2010:WorkflowViewState.IdRef="WriteBuildError_5" Message="Test Run Failed" />
+      </If.Then>
+    </If>
+    <sads:DebugSymbol.Symbol>d5wBQzpcUHJvamVjdHNcZGFuaWVsd2ViZXIudmlzdWFsc3R1ZGlvLmNvbVxEZWZhdWx0Q29sbGVjdGlvblxQcm90cmFjdG9yLVRGUy1JbnRlZ3JhdGlvblxSdW5Qcm90cmFjdG9yQWN0aXZpdHlcUnVuUHJvdHJhY3RvckFjdGl2aXR5XFJ1blByb3RyYWN0b3JBY3Rpdml0eS54YW1sOH0D/QIOAgEBhQELhQGGAQIBDYoBC4oBhgECAQKOAQWZASQDAeQCmgEFoAEmAwHYAqEBBacBHAMBzAKoAQXUARsDAY4C1QEFgQIbAwHQAYICBYYCDQMBxAGHAgW4AhsCAXu5AgXlAhsCAT3mAgXxAg4CASbyAgX7AgoCARiWAQuWAWEDAfACkQELkQGsAQMB5QKdAQudAXoDAdkCpAELpAFmAwHNAtEBC9EBtgEDAcECqwELqwHLAQMBtgKoAUaoAVIDAbUCswELuQEjAwGoAsEBC8wBJQMBjwL+AQv+AbYBAwGDAtgBC9gBmQEDAfgB1QFP1QFbAwH3AeABC+YBIwMB6gHuAQv5ASUDAdEBhAIJhAJhAwHFAbACC7ACtgEDAbkBigILigJ+AwGuAYcCPIcCigEDAa0BtQILtQJZAwGiAZICC5gCIwMBlQGgAgurAiUCAXziAgviArYBAgFwvAILvALtAgIBZbkCSbkClQECAWTEAgvKAiMCAVfSAgvdAiUCAT7uAgvuApUBAgEy6QIL6QJcAgEn9QIL9QK8AQIBGfkCCfkCcAIBJLYBEbYBWAMBqQLJARHJAVgDAZwCxAERxAF+AwGQAuMBEeMBWAMB6wH2ARH2AVgDAd4B8QER8QF+AwHSAZUCEZUCWAMBlgGoAhGoAlgDAYkBowIRowJ+AgF9xwIRxwJYAgFY2gIR2gJYAgFL1QIR1QJ+AgE/+QJc+QJtAgEl</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="GetEnvironmentVariable`1_2" sap:VirtualizedContainerService.HintSize="464,22.4" />
+      <sap2010:ViewStateData Id="GetTeamProjectCollection_1" sap:VirtualizedContainerService.HintSize="464,22.4" />
+      <sap2010:ViewStateData Id="GetBuildDetail_1" sap:VirtualizedContainerService.HintSize="464,22.4" />
+      <sap2010:ViewStateData Id="WriteBuildError_1" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="WriteBuildMessage_1" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="InvokeProcess_1" sap:VirtualizedContainerService.HintSize="464,52.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteBuildError_6" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="WriteBuildMessage_5" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="InvokeProcess_5" sap:VirtualizedContainerService.HintSize="464,52.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="464,22.4" />
+      <sap2010:ViewStateData Id="WriteBuildError_7" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="WriteBuildMessage_7" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="InvokeProcess_6" sap:VirtualizedContainerService.HintSize="464,52.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteBuildError_8" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="WriteBuildMessage_9" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="InvokeProcess_4" sap:VirtualizedContainerService.HintSize="464,273.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="464,62.4" />
+      <sap2010:ViewStateData Id="WriteBuildError_5" sap:VirtualizedContainerService.HintSize="200,22.4" />
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,212.8" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="486.4,1281.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="RunJsTestsActivity.Activity1_1" sap:VirtualizedContainerService.HintSize="526.4,1361.6" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
