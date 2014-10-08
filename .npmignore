@@ -1,4 +1,5 @@
-/AngularJS.UI.Tests
-/BuildProcessTemplates
-/ProtractorBuildTemplate
-/RunProtractorActivity
+node_modules
+AngularJS.UI.Tests
+BuildProcessTemplates
+ProtractorBuildTemplate
+RunProtractorActivity
