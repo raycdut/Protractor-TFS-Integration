@@ -18,7 +18,4 @@ else
 
 $configFolder = split-path $protractorConfig
 Invoke-Expression ("cd ""$configFolder""")
-npm install protractor-trx-reporter --save-dev    
-
-# this is only temporary as soon the protractor-trx-reporter is updated this can be removed
-npm install grunt --save-dev    
+npm install protractor-trx-reporter --save-dev
