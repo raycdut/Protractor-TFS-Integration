@@ -16,7 +16,7 @@
   "homepage": "https://github.com/danielweberonline/Protractor-TFS-Integration",
   "scripts": {
     "preinstall": "npm run protractor & npm run webdriver-manager",
-	"protractor" : "npm i -g protractor",
-	"webdriver-manager" : "npm i -g webdriver-manager && webdriver-manager update"
+    "protractor" : "npm i -g protractor",
+    "webdriver-manager" : "npm i -g webdriver-manager && webdriver-manager update"
   }
 }
