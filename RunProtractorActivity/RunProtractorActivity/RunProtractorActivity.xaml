@@ -89,6 +89,7 @@
       <x:String>Microsoft.TeamFoundation.Deployment.Workflow.Activities</x:String>
       <x:String>Microsoft.TeamFoundation.Deployment.Workflow</x:String>
       <x:String>Microsoft.TeamFoundation.Client</x:String>
+      <x:String>System.Globalization</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -96,10 +97,8 @@
       <AssemblyReference>Microsoft.CSharp</AssemblyReference>
       <AssemblyReference>Microsoft.TeamFoundation.Build.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.TeamFoundation.Build.Client</AssemblyReference>
-      <AssemblyReference>Microsoft.TeamFoundation.Build.Common</AssemblyReference>
       <AssemblyReference>Microsoft.TeamFoundation.Build.Workflow</AssemblyReference>
       <AssemblyReference>Microsoft.TeamFoundation.Client</AssemblyReference>
-      <AssemblyReference>Microsoft.TeamFoundation.Common</AssemblyReference>
       <AssemblyReference>Microsoft.TeamFoundation.Deployment.Workflow</AssemblyReference>
       <AssemblyReference>Microsoft.TeamFoundation.VersionControl.Client</AssemblyReference>
       <AssemblyReference>Microsoft.TeamFoundation.VersionControl.Common</AssemblyReference>
@@ -119,7 +118,7 @@
       <AssemblyReference>System.Xml.Linq</AssemblyReference>
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
-      <AssemblyReference>RunJsTestsActivity</AssemblyReference>
+      <AssemblyReference>RunProtractorActivity</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="Run Protractor Tests" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -168,7 +167,7 @@
     <mtbwa:InvokeProcess DisplayName="Install dependencies" FileName="powershell" sap2010:WorkflowViewState.IdRef="InvokeProcess_1">
       <mtbwa:InvokeProcess.Arguments>
         <InArgument x:TypeArguments="x:String">
-          <mca:CSharpValue x:TypeArguments="x:String">string.Format(@" ""&amp; '{0}' '{1}' "" ", SourcesDirectory + InstallDependenciesScript, SourcesDirectory + ProtractorConfigFile);</mca:CSharpValue>
+          <mca:CSharpValue x:TypeArguments="x:String">string.Format(CultureInfo.InvariantCulture, @" ""&amp; '{0}' '{1}' "" ", SourcesDirectory + InstallDependenciesScript, SourcesDirectory + ProtractorConfigFile);</mca:CSharpValue>
         </InArgument>
       </mtbwa:InvokeProcess.Arguments>
       <mtbwa:InvokeProcess.ErrorDataReceived>
@@ -213,7 +212,7 @@
     <mtbwa:InvokeProcess DisplayName="Starting webdriver manager..." FileName="powershell" sap2010:WorkflowViewState.IdRef="InvokeProcess_5">
       <mtbwa:InvokeProcess.Arguments>
         <InArgument x:TypeArguments="x:String">
-          <mca:CSharpValue x:TypeArguments="x:String">string.Format(@" ""&amp; '{0}' "" ", SourcesDirectory + WebdriverManagerScript);</mca:CSharpValue>
+          <mca:CSharpValue x:TypeArguments="x:String">string.Format(CultureInfo.InvariantCulture, @" ""&amp; '{0}' "" ", SourcesDirectory + WebdriverManagerScript);</mca:CSharpValue>
         </InArgument>
       </mtbwa:InvokeProcess.Arguments>
       <mtbwa:InvokeProcess.ErrorDataReceived>
@@ -313,7 +312,7 @@
     <mtbwa:InvokeProcess DisplayName="Publish JS Test Results" FileName="C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" sap2010:WorkflowViewState.IdRef="InvokeProcess_4">
       <mtbwa:InvokeProcess.Arguments>
         <InArgument x:TypeArguments="x:String">
-          <mca:CSharpValue x:TypeArguments="x:String">String.Format(@"/publish:""{0}"" /publishresultsfile:""{1}"" /publishbuild:""{2}"" /teamproject:""{3}"" /platform:""{4}"" /flavor:""{5}""", TeamProjectCollection.Uri, SourcesDirectory + @"\ProtractorTestResults.trx", BuildDetail.BuildNumber, BuildDetail.TeamProject, Plattform, Configuration)</mca:CSharpValue>
+          <mca:CSharpValue x:TypeArguments="x:String">String.Format(CultureInfo.InvariantCulture, @"/publish:""{0}"" /publishresultsfile:""{1}"" /publishbuild:""{2}"" /teamproject:""{3}"" /platform:""{4}"" /flavor:""{5}""", TeamProjectCollection.Uri, SourcesDirectory + @"\ProtractorTestResults.trx", BuildDetail.BuildNumber, BuildDetail.TeamProject, Plattform, Configuration)</mca:CSharpValue>
         </InArgument>
       </mtbwa:InvokeProcess.Arguments>
       <mtbwa:InvokeProcess.ErrorDataReceived>
@@ -377,7 +376,7 @@
         <mtbwa:WriteBuildError sap2010:WorkflowViewState.IdRef="WriteBuildError_5" Message="Test Run Failed" />
       </If.Then>
     </If>
-    <sads:DebugSymbol.Symbol>d5wBQzpcUHJvamVjdHNcZGFuaWVsd2ViZXIudmlzdWFsc3R1ZGlvLmNvbVxEZWZhdWx0Q29sbGVjdGlvblxQcm90cmFjdG9yLVRGUy1JbnRlZ3JhdGlvblxSdW5Qcm90cmFjdG9yQWN0aXZpdHlcUnVuUHJvdHJhY3RvckFjdGl2aXR5XFJ1blByb3RyYWN0b3JBY3Rpdml0eS54YW1sOH0D/QIOAgEBhQELhQGGAQIBDYoBC4oBhgECAQKOAQWZASQDAeQCmgEFoAEmAwHYAqEBBacBHAMBzAKoAQXUARsDAY4C1QEFgQIbAwHQAYICBYYCDQMBxAGHAgW4AhsCAXu5AgXlAhsCAT3mAgXxAg4CASbyAgX7AgoCARiWAQuWAWEDAfACkQELkQGsAQMB5QKdAQudAXoDAdkCpAELpAFmAwHNAtEBC9EBtgEDAcECqwELqwHLAQMBtgKoAUaoAVIDAbUCswELuQEjAwGoAsEBC8wBJQMBjwL+AQv+AbYBAwGDAtgBC9gBmQEDAfgB1QFP1QFbAwH3AeABC+YBIwMB6gHuAQv5ASUDAdEBhAIJhAJhAwHFAbACC7ACtgEDAbkBigILigJ+AwGuAYcCPIcCigEDAa0BtQILtQJZAwGiAZICC5gCIwMBlQGgAgurAiUCAXziAgviArYBAgFwvAILvALtAgIBZbkCSbkClQECAWTEAgvKAiMCAVfSAgvdAiUCAT7uAgvuApUBAgEy6QIL6QJcAgEn9QIL9QK8AQIBGfkCCfkCcAIBJLYBEbYBWAMBqQLJARHJAVgDAZwCxAERxAF+AwGQAuMBEeMBWAMB6wH2ARH2AVgDAd4B8QER8QF+AwHSAZUCEZUCWAMBlgGoAhGoAlgDAYkBowIRowJ+AgF9xwIRxwJYAgFY2gIR2gJYAgFL1QIR1QJ+AgE/+QJc+QJtAgEl</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d5wBQzpcUHJvamVjdHNcZGFuaWVsd2ViZXIudmlzdWFsc3R1ZGlvLmNvbVxEZWZhdWx0Q29sbGVjdGlvblxQcm90cmFjdG9yLVRGUy1JbnRlZ3JhdGlvblxSdW5Qcm90cmFjdG9yQWN0aXZpdHlcUnVuUHJvdHJhY3RvckFjdGl2aXR5XFJ1blByb3RyYWN0b3JBY3Rpdml0eS54YW1sOHwD/AIOAgEBhAELhAGGAQIBDYkBC4kBhgECAQKNAQWYASQDAeQCmQEFnwEmAwHYAqABBaYBHAMBzAKnAQXTARsDAY4C1AEFgAIbAwHQAYECBYUCDQMBxAGGAgW3AhsCAXu4AgXkAhsCAT3lAgXwAg4CASbxAgX6AgoCARiVAQuVAWEDAfACkAELkAGsAQMB5QKcAQucAXoDAdkCowELowFmAwHNAtABC9ABtgEDAcECqgELqgHpAQMBtgKnAUanAVIDAbUCwAELywElAwGcArIBC7gBIwMBjwL9AQv9AbYBAwGDAtcBC9cBtwEDAfgB1AFP1AFbAwH3Ae0BC/gBJQMB3gHfAQvlASMDAdEBgwIJgwJhAwHFAa8CC68CtgEDAbkBiQILiQJ+AwGuAYYCPIYCigEDAa0BtAILtAJZAwGiAZ8CC6oCJQMBiQGRAguXAiMCAXzhAgvhArYBAgFwuwILuwKLAwIBZbgCSbgClQECAWTRAgvcAiUCAUvDAgvJAiMCAT7tAgvtApUBAgEy6AIL6AJcAgEn9AIL9AK8AQIBGfgCCfgCcAIBJMgBEcgBWAMBqQLDARHDAX4DAZ0CtQERtQFYAwGQAvUBEfUBWAMB6wHwARHwAX4DAd8B4gER4gFYAwHSAacCEacCWAMBlgGiAhGiAn4DAYoBlAIRlAJYAgF92QIR2QJYAgFY1AIR1AJ+AgFMxgIRxgJYAgE/+AJc+AJtAgEl</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
